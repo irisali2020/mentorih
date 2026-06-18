@@ -6,7 +6,7 @@ function Header() {
             <div >
                 
                 <span style={styles.brandLogo}>🤖 Mentor Virtual</span>      
-                <h1>Hola, soy tu Mentor Virtual</h1> 
+                <h1>Hola, soy Mentor!</h1> 
             </div> 
         </header>  
     );  

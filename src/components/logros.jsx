@@ -1,215 +1,198 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function Logros() {
+  // Estado para saber qué categoría está seleccionada y filtrar los logros
+  const [categoriaActiva, setCategoriaActiva] = useState('enfoque');
+
+  const categorias = [
+    { id: 'enfoque', nombre: 'Enfoque', emoji: '🎯' },
+    { id: 'constancia', nombre: 'Constancia', emoji: '⏳' },
+    { id: 'disciplina', nombre: 'Disciplina', emoji: '🛡️' },
+    { id: 'acompanamiento', nombre: 'Acompañamiento', emoji: '🤝' },
+    { id: 'seguimiento', nombre: 'Seguimiento', emoji: '📈' },
+  ];
+
   return (
     <div style={styles.pageContainer}>
       
-      {/* [Aquí iría tu nueva columna 1 de la izquierda, si la tienes] */}
+      {/* SECCIÓN DE CATEGORÍAS (BOTONES RESPONSIVE) */}
+      <nav style={styles.categoriesNav}>
+        {categorias.map((cat) => (
+          <button
+            key={cat.id}
+            onClick={() => setCategoriaActiva(cat.id)}
+            style={{
+              ...styles.categoryButton,
+              ...(categoriaActiva === cat.id ? styles.activeButton : {}),
+            }}
+          >
+            <span style={{ marginRight: '6px' }}>{cat.emoji}</span>
+            {cat.nombre}
+          </button>
+        ))}
+      </nav>
 
-      {/* COLUMNA 2: ESTADO Y COMUNIDAD (Ubicado ahora en el centro) */}
-      <aside style={styles.rightPanel}>
+      {/* CONTENIDO PRINCIPAL - Ahora controlado por Flexbox responsivo en línea */}
+      <div style={styles.contentLayout}>
         
-        {/* Widget de Enfoque */}
-        <div style={styles.widget}>
-          <h3>🎯 Área de Interés</h3>
-          <div style={styles.areaTag}>Constancia</div>
-        </div>
+        {/* COLUMNA PRINCIPAL DE CONTENIDO */}
+        <section style={styles.mainColumn}>
+          <div style={styles.widget}>
+            <h3 style={{marginTop: 0, color: '#333'}}>🏆 Logros de {categorias.find(c => c.id === categoriaActiva)?.nombre}</h3>
+            <p style={{color: '#666', margin: 0}}>Próximamente: Lista de objetivos y medallas desbloqueadas para esta categoría.</p>
+          </div>
+        </section>
 
-        {/* Widget de Racha */}
-        <div style={styles.widget}>
-          <h3>🔥 Tu Racha</h3>
-          <div style={styles.rachaNumber}>5 Días</div>
-          <p style={{fontSize: '14px', color: '#777', margin: 0}}>¡Mantén el fuego encendido!</p>
-        </div>
+        {/* COLUMNA DE ESTADO Y COMUNIDAD (Widgets) */}
+        <aside style={styles.widgetsColumn}>
+          
+          {/* Widget de Enfoque / Filtro Dinámico */}
+          <div style={styles.widget}>
+            <h3 style={styles.widgetTitle}>🎯 Categoría Activa</h3>
+            <div style={styles.areaTag}>
+              {categorias.find(c => c.id === categoriaActiva)?.nombre}
+            </div>
+          </div>
 
-        {/* Widget de Aliados */}
-        <div style={styles.widget}>
-          <h3>🤝 Aliados Activos</h3>
-          <ul style={styles.aliadosList}>
-            <li style={styles.aliadoItem}>
-              <span style={styles.aliadoAvatar}>💼</span> 
-              <div>
-                <strong>Mas de 5 aliados</strong>
-                <p style={{margin:0, fontSize: '12px', color: '#777'}}>Has hecho un gran trabajo manteniendo a tus aliados!!!! </p>
-              </div>
-            </li>
-            <li style={styles.aliadoItem}>
-              <span style={styles.aliadoAvatar}>🧁</span> 
-              <div>
-                <strong>Entre 2 y 5 aliados</strong>
-                <p style={{margin:0, fontSize: '12px', color: '#777'}}>Son un grupo importante de apoyo</p>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </aside>
+          {/* Widget de Racha */}
+          <div style={styles.widget}>
+            <h3 style={styles.widgetTitle}>🔥 Tu Racha</h3>
+            <div style={styles.rachaNumber}>5 Días</div>
+            <p style={{fontSize: '14px', color: '#777', margin: 0}}>¡Mantén el fuego encendido!</p>
+          </div>
 
-      {/* [Aquí iría tu columna 3 de la derecha, como el Menú de Acciones] */}
+          {/* Widget de Aliados */}
+          <div style={styles.widget}>
+            <h3 style={styles.widgetTitle}>🤝 Aliados Activos</h3>
+            <ul style={styles.aliadosList}>
+              <li style={styles.aliadoItem}>
+                <span style={styles.aliadoAvatar}>💼</span> 
+                <div>
+                  <strong style={{color: '#333', fontSize: '14px'}}>Más de 5 aliados</strong>
+                  <p style={{margin:0, fontSize: '12px', color: '#777'}}>¡Has hecho un gran trabajo!</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </aside>
 
+      </div>
     </div>
   );
 }
-    
-      {/* COLUMNA 3: MENÚ DE ACCIONES (Ahora a la derecha)
-      <aside style={styles.sidebar}>
-        <div style={styles.logo}>🤖 MentorVirtual</div>
-        <p style={styles.sectionTitle}>ACCIONES</p>
-        <nav style={styles.navLinks}>
-          <div style={styles.navItem}>📚 Aprender</div>
-          <div style={styles.navItem}>🎯 Practicar</div>
-          <div style={styles.navItem}>🤝 Aliados</div>
-          <div style={styles.navItem}>⚔️ Desafíos</div>
-        </nav>
-      </aside> */}
 
-// ESTILOS EN LÍNEA EN JAVASCRIPT PURO
+// ESTILOS EN LÍNEA OPTIMIZADOS Y TOTALMENTE RESPONSIVOS
 const styles = {
   pageContainer: {
-    display: 'grid',
-    gridTemplateColumns: '260px 1fr 320px',
-    minHeight: '100vh',
-    fontFamily: 'sans-serif',
-    backgroundColor: '#fafafa',
-  },
-  sidebar: {
-    gridColumn: '3',
-    backgroundColor: '#fff',
-    borderRight: '2px solid #e5e5e5',
-    padding: '24px',
     display: 'flex',
     flexDirection: 'column',
-    gap: '15px',
+    padding: '24px 16px',
+    fontFamily: 'system-ui, sans-serif',
+    maxWidth: '1200px',
+    margin: '0 auto',
+    boxSizing: 'border-box',
+    width: '100%',
   },
-  logo: {
-    fontSize: '22px',
-    fontWeight: 'bold',
-    color: '#58cc02',
+  categoriesNav: {
+    display: 'flex',
+    gap: '10px',
+    overflowX: 'auto',
+    paddingBottom: '12px',
     marginBottom: '20px',
+    WebkitOverflowScrolling: 'touch',
+    // Oculta la barra de scroll en navegadores basados en Webkit y Firefox
+    scrollbarWidth: 'none', 
+    msOverflowStyle: 'none',
   },
-  sectionTitle: {
-    fontSize: '12px',
-    fontWeight: 'bold',
-    color: '#aaa',
-    letterSpacing: '1px',
-    margin: '0 0 5px 0',
-  },
-  navLinks: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '8px',
-  },
-  navItem: {
-    padding: '14px 16px',
-    borderRadius: '12px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
+  categoryButton: {
+    padding: '10px 18px',
+    borderRadius: '20px',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '#e0e0e0',
+    backgroundColor: '#ffffff',
     color: '#4b4b4b',
-    border: '2px solid transparent',
-  },
-  mainContent: {
-    gridColumn: '2',
-    padding: '40px',
-    overflowY: 'auto',
-    backgroundColor: '#bb0e0e',
-  },
-  header: {
-    marginBottom: '40px',
-    borderBottom: '2px solid #200808',
-    paddingBottom: '20px',
-  },
-  mainTitle: {
-    fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', // Se adapta al estirar la pantalla sin romperse
-    lineHeight: '1.2',                      // Evita estrictamente que las letras se monten una sobre otra
-    color: '#fff',                          // Texto blanco para que resalte y sea legible sobre el fondo rojo
-    margin: '0 0 10px 0',
-  },
-  nivelesContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '24px',
-  },
-  nivelCard: {
-    border: '2px solid #e5e5e5',
-    borderRadius: '20px',
-    padding: '24px',
-    position: 'relative',
-    backgroundColor: '#fff',
-    boxShadow: '0 4px 0 #e5e5e5',
-  },
-  nivelBadge: {
-    position: 'absolute',
-    top: '24px',
-    right: '24px',
-    backgroundColor: '#af52de',
-    color: '#fff',
-    padding: '4px 12px',
-    borderRadius: '20px',
-    fontSize: '12px',
-    fontWeight: 'bold',
-  },
-  actionButton: {
-    marginTop: '15px',
-    padding: '10px 20px',
-    borderRadius: '12px',
-    border: 'none',
-    backgroundColor: '#af52de',
-    color: '#fff',
-    fontWeight: 'bold',
+    fontWeight: '600',
+    fontSize: '14px',
     cursor: 'pointer',
-    boxShadow: '0 4px 0 #8e3eb8',
+    whiteSpace: 'nowrap',
+    transition: 'all 0.2s ease',
   },
-  rightPanel: {
-    gridColumn: '2',
-    padding: '40px 24px',
+  activeButton: {
+    backgroundColor: '#315ea0',
+    color: '#ffffff',
+    borderColor: '#315ea0',
+    boxShadow: '0px 4px 12px rgba(49, 94, 160, 0.25)',
+  },
+  contentLayout: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap', // Aplana las columnas cuando no hay espacio suficiente (Móviles)
+    gap: '20px',
+    width: '100%',
+    boxSizing: 'border-box',
+  },
+  mainColumn: {
+    flex: '2 1 500px', // Toma más espacio en PC, pero permite encogerse y colapsar
+    boxSizing: 'border-box',
+    minWidth: '280px', // Evita desbordes en pantallas pequeñas
+  },
+  widgetsColumn: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px',
+    gap: '16px',
+    flex: '1 1 300px', // Toma una proporción menor en PC y baja al 100% en teléfonos
+    boxSizing: 'border-box',
+    minWidth: '280px', // Cabe perfectamente en cualquier celular
   },
   widget: {
-    backgroundColor: '#fff',
-    border: '2px solid #e5e5e5',
-    borderRadius: '20px',
+    backgroundColor: '#ffffff',
     padding: '20px',
+    borderRadius: '16px',
+    border: '2px solid #e5e5e5',
     boxShadow: '0 4px 0 #e5e5e5',
+    boxSizing: 'border-box',
+    width: '100%',
+  },
+  widgetTitle: {
+    fontSize: '16px',
+    color: '#1a1a1a',
+    margin: '0 0 12px 0',
+    fontWeight: 'bold',
   },
   areaTag: {
     display: 'inline-block',
-    backgroundColor: '#ffc800',
-    color: '#fff',
-    padding: '6px 16px',
-    borderRadius: '12px',
+    padding: '6px 14px',
+    backgroundColor: '#e1f5fe',
+    color: '#0288d1',
+    borderRadius: '20px',
     fontWeight: 'bold',
-    marginTop: '5px',
+    fontSize: '14px',
   },
   rachaNumber: {
-    fontSize: '36px',
+    fontSize: '32px',
     fontWeight: 'bold',
     color: '#ff4b4b',
-    margin: '5px 0',
+    margin: '0 0 4px 0',
   },
   aliadosList: {
     listStyle: 'none',
     padding: 0,
-    margin: '10px 0 0 0',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'left',
-    // flexDirection: 'column',
-    gap: '12px',
+    margin: 0,
   },
   aliadoItem: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '10px',
+    alignItems: 'center',    
+    gap: '12px',
     textAlign: 'left',
   },
   aliadoAvatar: {
     fontSize: '24px',
-    backgroundColor: '#f1f1f1',
+    backgroundColor: '#f5f7fa',
     padding: '8px',
     borderRadius: '12px',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 };

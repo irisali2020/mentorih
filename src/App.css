@@ -181,4 +181,66 @@
     right: 0;
     border-right-color: var(--border);
   }
+
+  /* --- ESTILOS RESPONSIVOS PARA EL CONTENEDOR DE INICIO --- */
+
+.inicio-main-content {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 40px; /* Tamaño por defecto para escritorio */
+  transition: padding 0.3s ease;
 }
+
+.niveles-grid-container {
+  display: grid;
+  /* Crea columnas automáticamente de mínimo 280px, si no caben se acomodan abajo */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Media Query para Tabletas y Teléfonos */
+@media (max-width: 768px) {
+  .inicio-main-content {
+    padding: 24px 16px; /* Menos espacio en las esquinas para pantallas chicas */
+  }
+  
+  .niveles-grid-container {
+    gap: 16px; /* Tarjetas un poco más juntas en móviles */
+  }
+
+  /* --- CONFIGURACIÓN RESPONSIVA PARA LOGROS --- */
+
+/* Ocultar barra de scroll estéticamente en la barra de categorías */
+.categories-nav::-webkit-scrollbar {
+  display: none; 
+}
+
+/* Layout base: 1 sola columna para móviles por defecto */
+.logros-content-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Los widgets individuales se apilarán uno debajo de otro */
+.logros-widgets-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* --- COMPUTADORAS Y PANTALLAS MEDIANAS (Desktop/Tablet Horizontal) --- */
+@media (min-width: 800px) {
+  .logros-content-layout {
+    /* Divide la pantalla: 2 partes para contenido principal, 1 parte para widgets (sidebar de la sección) */
+    grid-template-columns: 2fr 1fr; 
+  }
+}
+}
+
+
+
+
